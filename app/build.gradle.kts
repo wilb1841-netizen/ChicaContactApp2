@@ -53,7 +53,7 @@ dependencies {
     // Room - Localdatabase
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.complier)
+    ksp(libs.androidx.room.compiler)
     //testing
     testImplementation(libs.junit)
     testImplementation(libs.junit)

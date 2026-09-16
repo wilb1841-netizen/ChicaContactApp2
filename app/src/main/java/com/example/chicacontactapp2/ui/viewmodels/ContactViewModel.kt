@@ -20,7 +20,7 @@ class ContactViewModel (application: Application): AndroidViewModel(application)
     // Expose all contacts as a StateFlow to the UI layer
     // This is a read-only StateFlow that exposes the list of contacts
     //scope = viewModelScope: the flow lives as long as the viewModel does
-    val contacts: StateFlow<list<Contact>> = _dao.getAllContacts().stateIn(
+    val contacts: StateFlow<List<Contact>> = _dao.getAllContacts().stateIn(
         scope =  viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
         initialValue = emptyList()

@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType.Companion.Email
 import androidx.compose.ui.unit.dp
 import com.example.chicacontactapp2.data.Contact
+
 // Reusable dialog for creating and editing contacts
 // Contact: null = create mode (empty fields), Contact object = edit mode (pre-filled)
 //onConfirm : callback when user taps Save-passes the new/ updated contact
@@ -31,48 +32,43 @@ import com.example.chicacontactapp2.data.Contact
 @Composable
 fun ContactDialog(
     contact: Contact? = null,
-    onConfirm: (Contact)-> Unit,
-    onDismiss: ()-> Unit
-){
+    onConfirm: (Contact) -> Unit,
+    onDismiss: () -> Unit
+) {
     //Local state for the three put fields
     // these are separate from the viewModel -- purely UI state
     // They exit only whiled the dialog is visible and open
-    var  name by remember{ mutableStateOf(value = contact?.name ?: "") }
-    var phoneNumber by remember { mutableStateOf(value = contact?.phoneNumber ?:"") }
-    var email by remember { mutableStateOf(value = contact?.email ?:"") }
+    var name by remember { mutableStateOf(value = contact?.name ?: "") }
+    var phoneNumber by remember { mutableStateOf(value = contact?.phoneNumber ?: "") }
+    var email by remember { mutableStateOf(value = contact?.email ?: "") }
 
     // Determine the title of the dialog based on the contact parameter
     // Contact: null = create mode (empty fields), Contact object = edit mode (pre-filled)
-    val title = if (contact == null)"Add Contact" else "Edit Contact"
+    val title = if (contact == null) "Add Contact" else "Edit Contact"
 
     AlertDialog(
-    onDismissRequest = onDismiss,
-    title = {Text(text = title)},
+        onDismissRequest = onDismiss,
+        title = { Text(text = title) },
         text = {
             Column(
                 modifier = Modifier.padding(8.dp)
-            ){
+            ) {
                 //Name field -- required
                 OutlinedTextField(
                     value = name,
-                    onValueChange = {name = it},
+                    onValueChange = { name = it },
                     label = { Text(text = "Name") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp)
                 )
-                // challenge add phone number and email fields
-                // end Column
-                // end text parameter
-                // end AlertDialog
-                // end ContactDialog
                 OutlinedTextField(
                     value = phoneNumber,
-                    onValueChange = {phoneNumber = it},
+                    onValueChange = { phoneNumber = it },
                     label = { Text(text = "phoneNumber") },
                     keyboardOptions = KeyboardOptions(
-                           imeAction = ImeAction.Next
-                       ),
+                        imeAction = ImeAction.Next
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp)
@@ -80,7 +76,7 @@ fun ContactDialog(
                 // Email fields-- optional
                 OutlinedTextField(
                     value = email,
-                    onValueChange = {email = it},
+                    onValueChange = { email = it },
                     label = { Text(text = "email(Optional)") },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done
@@ -94,7 +90,7 @@ fun ContactDialog(
 
             }
         },
-        confirmButton= {
+        confirmButton = {
             Button(onClick = {
                 val newContact = Contact(
                     id = contact?.id ?: 0,
@@ -106,7 +102,7 @@ fun ContactDialog(
             }) { Text("Save") }
         },
         dismissButton = {
-            Button(onClick = onDismiss){
+            Button(onClick = onDismiss) {
                 Text("Cancel")
             }
         }

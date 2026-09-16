@@ -4,25 +4,36 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.chicacontactapp2.ui.theme.ChicaContactApp2Theme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.chicacontactapp2.data.Contact
+import com.example.chicacontactapp2.ui.Screen.ContactListScreen
+import com.example.chicacontactapp2.ui.viewmodels.ContactViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ChicaContactApp2Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+            // Create the viewModel instance
+            // viewModel() is a compose function that creates a ViewModel instance
+            // scoped to the current composable -- survives recompositions and configuration changes
+            // All  screens receive the same ViewModel instance, so they share the same data
+            val viewModel: ContactViewModel = viewModel()
+
+            val selectedContact = remember { mutableStateOf<Contact?>(value = null) }
+            // Apply the app's Material design theme to all screens
+            MaterialTheme {
+                // Conditional rendering -- show one screen or
+                if (selectedContact.value == null) {
+                    //show the list Screen -- user is browsing
+                    ContactListScreen(
+                        viewModel = viewModel,
+                        onContactClick = { contact ->
+                            selectedContact.value = contact
+                        }
                     )
                 }
             }
@@ -30,18 +41,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ChicaContactApp2Theme {
-        Greeting("Android")
-    }
-}
