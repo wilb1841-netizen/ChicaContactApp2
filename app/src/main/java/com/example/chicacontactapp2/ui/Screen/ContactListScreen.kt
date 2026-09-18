@@ -1,7 +1,5 @@
 package com.example.chicacontactapp2.ui.Screen
 
-import android.R.attr.padding
-import android.R.attr.title
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -63,7 +61,7 @@ fun ContactListScreen(
         topBar = {
             TopAppBar(
                 // Title displayed in the center of the TopAppBar
-                title = { Text("Contacts") },
+                title = {Text("Contacts")},
                 // Style the header with the app's primary color
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -72,7 +70,7 @@ fun ContactListScreen(
         }, // end TopAppBar
         floatingActionButton = {
             // FAB --circular button in the bottom right corner
-            FloatingActionButton(onClick = { showAddDialog = true }) {
+            FloatingActionButton( onClick = {showAddDialog = true }) {
                 Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Contact")
             } // end floatingActionButton parameter
         }
@@ -104,10 +102,10 @@ fun ContactListScreen(
                         ContactItem(
                             contact = contact,
                             // when the user taps the card, navigate to the detail screen
-                            onClick = { onContactClick(contact) },
+                            onClick = {onContactClick(contact)},
                             // When user taps the delete button, delete from ViewModel
-                            //  launches a coroutine to delete from the dataBase
-                            onDelete = { viewModel.deleteContact(contact) }
+                            //   launches a coroutine to delete from the dataBase
+                            onDelete = {viewModel.deleteContact(contact)}
                         )
                     }
                 }

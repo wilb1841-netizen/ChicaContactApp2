@@ -1,6 +1,5 @@
 package com.example.chicacontactapp2.ui.Components
 
-import android.app.AlertDialog
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,10 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.room.Delete
-import androidx.room.util.TableInfo
 import com.example.chicacontactapp2.data.Contact
-import java.nio.file.WatchEvent
 
 @Composable
 fun ContactItem(
@@ -45,12 +41,12 @@ fun ContactItem(
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
             title = { Text("Delete contact") },
-            text = { Text("Delete ${contact.name}? This action cannot e undone.") },
+            text = { Text("Delete ${contact.name}? This action cannot e undone.")},
             confirmButton = {
                 TextButton(onClick = {
                     onDelete()
                     showDeleteDialog = false
-                }) { Text("Delete") }
+                }) { Text("Delete")}
             },
             dismissButton = {
                 TextButton(
@@ -66,7 +62,7 @@ fun ContactItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 4.dp)
-            .clickable { (onClick) },
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Row(
@@ -84,7 +80,7 @@ fun ContactItem(
             )
             Spacer(modifier = Modifier.width(16.dp))
 
-            Column(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier.weight(1f)){
 
                 Text(
                     contact.name,

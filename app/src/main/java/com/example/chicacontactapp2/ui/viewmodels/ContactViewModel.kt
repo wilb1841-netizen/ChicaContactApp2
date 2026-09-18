@@ -33,6 +33,11 @@ class ContactViewModel (application: Application): AndroidViewModel(application)
     }
     // Update a contact in the database
     // Challenge create the method for updating a contact
+    fun updateContact(contact: Contact) {
+        viewModelScope.launch {
+            _dao.updateContact(contact)
+        }
+    }
     // Challenge create the method for deleting a contact
     fun deleteContact(contact: Contact){
         viewModelScope.launch {

@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.chicacontactapp2.data.Contact
+import com.example.chicacontactapp2.ui.Screen.ContactDetailScreen
 import com.example.chicacontactapp2.ui.Screen.ContactListScreen
 import com.example.chicacontactapp2.ui.viewmodels.ContactViewModel
 
@@ -34,6 +35,13 @@ class MainActivity : ComponentActivity() {
                         onContactClick = { contact ->
                             selectedContact.value = contact
                         }
+                    )
+                }
+                else{
+                    ContactDetailScreen(
+                        contactId = selectedContact.value!!.id,
+                        viewModel = viewModel,
+                        onBackClick = {selectedContact.value = null}
                     )
                 }
             }
